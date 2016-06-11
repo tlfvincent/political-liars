@@ -9,6 +9,7 @@ import itertools
 
 
 def get_page_source(page):
+    '''get HTML content of page'''
     try:
         url = 'http://www.politifact.com/truth-o-meter/statements/?page={}'.format(page)
         response = urllib2.urlopen(url)
@@ -24,6 +25,7 @@ def extract_truth(table,
                   truth_meter,
                   image_source,
                   statement_text):
+    '''extract statement text, image of candidate and truth of statement'''
     for truth in table:
         fact = [item['alt'] for item in truth.findAll("img")]
         images = [item['src'] for item in truth.findAll("img") if '.jpg' in item['src']]
