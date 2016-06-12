@@ -6,6 +6,7 @@ library(ggplot2)
 library(rjson)
 library(wordcloud)
 library(tm)
+library(DT)
 
 top_words <- 25
 
@@ -78,6 +79,20 @@ server <- function(input, output) {
       return(test)
     })
 
+    generate_table <- reactive({
+      df <- extract_values()
+      df[c(2, 4), ] <- df[c(2, 4), ]*100
+      dt <- datatable(df, options = list(paging = FALSE, searching = FALSE)) %>%
+      formatStyle(
+        'True',
+        background = styleColorBar(df$True, 'steelblue'),
+        backgroundSize = '100% 90%',
+        backgroundRepeat = 'no-repeat',
+        backgroundPosition = 'center'
+      )
+      return(dt)
+    })
+
   output$wc_choice_1 <- renderPlot({
       present <- truth_data_text[[input$choice_1]] %in% stopwords("SMART")
       m <- truth_data_text[[input$choice_1]][which(present=='FALSE')]
@@ -115,9 +130,20 @@ server <- function(input, output) {
   })
 
   output$ResultTable <- renderDataTable(
-      datatable(extract_values(),
-                options = list(paging = FALSE,
-                               searching = FALSE))
+    generate_table()
+    # table_data <- extract_values()
+    # datatable(table_data, options = list(paging = FALSE, searching = FALSE)) 
+      # table_data <- extract_values()
+      # datatable(table_data,
+      #           options = list(paging = FALSE,
+      #                          searching = FALSE))  %>%
+      # formatStyle(
+      #   'True',
+      #   background = styleColorBar(table_data$True, 'steelblue'),
+      #   backgroundSize = '100% 90%',
+      #   backgroundRepeat = 'no-repeat',
+      #   backgroundPosition = 'center'
+      # )
   )
 
 }
