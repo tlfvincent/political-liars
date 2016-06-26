@@ -2,6 +2,9 @@ FROM r-base:latest
 
 MAINTAINER Winston Chang "winston@rstudio.com"
 
+## Expose port for shiny app
+EXPOSE 3838
+
 RUN apt-get update && apt-get install -y -t unstable \
     sudo \
     gdebi-core \
@@ -20,8 +23,9 @@ RUN wget --no-verbose https://s3.amazonaws.com/rstudio-shiny-server-os-build/ubu
     R -e "install.packages(c('shiny', 'rmarkdown'), repos='https://cran.rstudio.com/')" && \
     cp -R /usr/local/lib/R/site-library/shiny/examples/* /srv/shiny-server/
 
-EXPOSE 3838
-
+## Copy app and config files to shiny server directory
+COPY ./app /srv/shin-server/app
 COPY shiny-server.sh /usr/bin/shiny-server.sh
+RUN CHMOD 777 /usr/bin/shiny-server.sh
 
 CMD ["/usr/bin/shiny-server.sh"]
