@@ -80,14 +80,14 @@ def main():
             val_tokenized = val_lower[0].split(' ')
         statement_text_processed[k] = val_tokenized
 
-    with open('politifact_statements.txt', 'w') as outfile:
+    with open('./app/politifact_statements.txt', 'w') as outfile:
         json.dump(truth_meter, outfile)
 
-    with open('politifact_statements_text.txt', 'w') as outfile:
+    with open('./app/politifact_statements_text.txt', 'w') as outfile:
         json.dump(statement_text_processed, outfile)
 
     df = pd.DataFrame.from_dict(image_source.items())
-    df.to_csv('politifact_image_source.csv', index=False, encoding='utf-8')
+    df.to_csv('./app/politifact_image_source.csv', index=False, encoding='utf-8')
 
 
 if __name__ == '__main__':
