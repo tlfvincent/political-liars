@@ -14,7 +14,7 @@ def get_page_source(page):
         url = 'http://www.politifact.com/truth-o-meter/statements/?page={}'.format(page)
         response = urllib2.urlopen(url)
         page_source = response.read()
-        soup = BeautifulSoup(page_source, "html5lib")
+        soup = BeautifulSoup(page_source, "html.parser")
         return soup
     except:
         print "Could not obtain data for page {}".format(page)
