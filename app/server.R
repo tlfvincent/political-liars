@@ -98,7 +98,7 @@ server <- function(input, output) {
       m <- truth_data_text[[input$choice_1]][which(present=='FALSE')]
       m <- table(m)
       v <- sort(m, decreasing=TRUE)
-      d <- data.frame(word = names(v), freq=v)
+      d <- data.frame(word = names(v), freq=as.numeric(v))
       d <- d[1:min(top_words, nrow(d)), ]
       wordcloud(d$word, d$freq)
   })
@@ -108,7 +108,7 @@ server <- function(input, output) {
       m <- truth_data_text[[input$choice_2]][which(present=='FALSE')]
       m <- table(m)
       v <- sort(m, decreasing=TRUE)
-      d <- data.frame(word = names(v), freq=v)
+      d <- data.frame(word = names(v), freq=as.numeric(v))
       d <- d[1:min(top_words, nrow(d)), ]
       wordcloud(d$word, d$freq)
   })
