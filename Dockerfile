@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -y -t unstable \
     pandoc-citeproc \
     libcurl4-gnutls-dev \
     libcairo2-dev/unstable \
-"Dockerfile" 40L, 1441C                                         1,1           Top
     gdebi -n ss-latest.deb && \
     rm -f version.txt ss-latest.deb
 
