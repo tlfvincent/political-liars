@@ -12,7 +12,7 @@ entities <- names(sort(unlist(lapply(truth_data, length)), decreasing=TRUE))
 
 # Simple header -----------------------------------------------------------
 
-header <- dashboardHeader(title="Liar Liar")
+header <- dashboardHeader(title="Truth-O-Meter")
 
 # No sidebar --------------------------------------------------------------
 
